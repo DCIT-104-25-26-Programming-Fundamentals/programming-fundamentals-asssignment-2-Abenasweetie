@@ -51,9 +51,62 @@
 
 //
 // =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
+#include <iostream>
+
+using namespace std;
+
+// Function to print a single multiplication table for a given number from 1 to 12
+void printSingleTable(int num) {
+    cout << "\nMultiplication Table for " << num << ":" << endl;
+    for (int i = 1; i <= 12; i++) {
+        cout << num << "  x  " << i << "  =  " << (num * i) << endl;
+    }
+}
+
+// PART A: Single Table
+void partA() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+
+    printSingleTable(num);
+}
+
+// PART B: Tables from 1 to N
+void partB() {
+    int n;
+    cout << "Enter a number N: ";
+    cin >> n;
+
+    // Validate input range
+    if (n <= 0) {
+        cout << "Error: N must be a positive integer." << endl;
+        return;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        printSingleTable(i);
+        if (i < n) {
+            cout << "---------------------------" << endl;
+        }
+    }
+}
+
+int main() {
+    // PART A: Single Table
+    cout << "========================================" << endl;
+    cout << "        PART A: SINGLE TABLE            " << endl;
+    cout << "========================================" << endl;
+    partA();
+
+    // PART B: Tables from 1 to N
+    cout << "\n========================================" << endl;
+    cout << "      PART B: TABLES FROM 1 TO N        " << endl;
+    cout << "========================================" << endl;
+    partB();
+
+    return 0;
+}
 // =============================================================================
 
-#include <iostream>
-using namespace std;
 
