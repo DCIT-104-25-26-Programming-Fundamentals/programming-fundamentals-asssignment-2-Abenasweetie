@@ -36,9 +36,83 @@
 
 //
 // =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
-// =============================================================================
-
 #include <iostream>
 using namespace std;
+
+// Function to calculate the sum of elements
+double calculateSum(const double arr[], int size) {
+    double sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+// Function to calculate the average of elements
+double calculateAverage(const double arr[], int size) {
+    double sum = calculateSum(arr, size);
+    return sum / size;
+}
+
+// Function to find the maximum element
+double findMax(const double arr[], int size) {
+    double maxVal = arr[0];
+    for (int i = 1; i < size; ++i) {
+        if (arr[i] > maxVal) {
+            maxVal = arr[i];
+        }
+    }
+    return maxVal;
+}
+
+// Function to find the minimum element
+double findMin(const double arr[], int size) {
+    double minVal = arr[0];
+    for (int i = 1; i < size; ++i) {
+        if (arr[i] < minVal) {
+            minVal = arr[i];
+        }
+    }
+    return minVal;
+}
+
+int main() {
+    int n;
+    cout << "How many numbers? ";
+    cin >> n;
+
+    // Validate that N is positive
+    if (n <= 0) {
+        cout << "Error: Number of elements must be greater than 0." << endl;
+        return 1;
+    }
+
+    // Dynamically allocate memory for the array
+    double* numbers = new double[n];
+
+    // Read input numbers from the user
+    for (int i = 0; i < n; ++i) {
+        cout << "Enter number " << (i + 1) << ": ";
+        cin >> numbers[i];
+    }
+
+    // Compute statistical values using functions
+    double sum = calculateSum(numbers, n);
+    double average = calculateAverage(numbers, n);
+    double maxVal = findMax(numbers, n);
+    double minVal = findMin(numbers, n);
+
+    // Display results
+    cout << "\nResults:" << endl;
+    cout << "Sum:     " << sum << endl;
+    cout << "Average: " << average << endl;
+    cout << "Maximum: " << maxVal << endl;
+    cout << "Minimum: " << minVal << endl;
+
+    // Free allocated memory
+    delete[] numbers;
+
+    return 0;
+}
+// =============================================================================
 
