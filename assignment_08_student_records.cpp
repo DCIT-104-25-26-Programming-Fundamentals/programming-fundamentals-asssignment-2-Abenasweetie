@@ -78,6 +78,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <sstream> // for converting numbers to string in C++98
 
 using namespace std;
 
@@ -94,8 +95,9 @@ double calculateAverage(const vector<double>& scores) {
         return 0.0;
     }
     double sum = 0.0;
-    for (double score : scores) {
-        sum += score;
+    // C++98 index-based loop
+    for (size_t i = 0; i < scores.size(); ++i) {
+        sum += scores[i];
     }
     return sum / scores.size();
 }
@@ -105,7 +107,7 @@ void addStudent(vector<Student>& students) {
     Student s;
     
     cout << "Student name: ";
-    cin.ignore(); // Clear leftover newline character from cin
+    cin.ignore(); // Clear leftover newline character
     getline(cin, s.name);
     
     cout << "Student ID: ";
@@ -145,18 +147,22 @@ void displayAllStudents(const vector<Student>& students) {
          << setw(10) << "Average" << endl;
     cout << "--------------------------------------------------------------------------------" << endl;
 
-    for (const auto& s : students) {
+    // C++98 loop using index
+    for (size_t i = 0; i < students.size(); ++i) {
+        const Student& s = students[i];
+
         cout << left << setw(20) << s.name 
              << setw(12) << s.id;
         
-        // Format and collect individual scores into a string display
-        string scoresStr = "";
-        for (size_t i = 0; i < s.scores.size(); ++i) {
-            scoresStr += to_string(static_cast<int>(s.scores[i]));
-            if (i < s.scores.size() - 1) {
-                scoresStr += ", ";
+        // Build scores string for display
+        stringstream ss;
+        for (size_t j = 0; j < s.scores.size(); ++j) {
+            ss << static_cast<int>(s.scores[j]);
+            if (j < s.scores.size() - 1) {
+                ss << ", ";
             }
         }
+        string scoresStr = ss.str();
         
         cout << setw(25) << (scoresStr.empty() ? "None" : scoresStr);
         cout << fixed << setprecision(2) << setw(10) << calculateAverage(s.scores) << endl;
@@ -176,10 +182,11 @@ void calculateStudentAverage(const vector<Student>& students) {
     cin >> targetID;
 
     bool found = false;
-    for (const auto& s : students) {
-        if (s.id == targetID) {
-            double avg = calculateAverage(s.scores);
-            cout << s.name << "'s average score: " 
+    // C++98 loop using index
+    for (size_t i = 0; i < students.size(); ++i) {
+        if (students[i].id == targetID) {
+            double avg = calculateAverage(students[i].scores);
+            cout << students[i].name << "'s average score: " 
                  << fixed << setprecision(2) << avg << endl;
             found = true;
             break;
