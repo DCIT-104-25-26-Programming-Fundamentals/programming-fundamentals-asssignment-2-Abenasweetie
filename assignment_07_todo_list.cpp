@@ -72,11 +72,96 @@
 
 //
 // =============================================================================
-// YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
-// =============================================================================
-
 #include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
+
+// Function to add a task to the vector
+void addTask(vector<string>& tasks) {
+    cout << "Enter task: ";
+    cin.ignore(); // Clear remaining newline character from cin stream
+    string task;
+    getline(cin, task);
+    
+    tasks.push_back(task);
+    cout << "Task added: \"" << task << "\"" << endl;
+}
+
+// Function to view all tasks currently in the vector
+void viewTasks(const vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "Your to-do list is currently empty!" << endl;
+        return;
+    }
+
+    cout << "\nYour Tasks:" << endl;
+    for (size_t i = 0; i < tasks.size(); ++i) {
+        cout << (i + 1) << ". " << tasks[i] << endl;
+    }
+}
+
+// Function to delete a task by its index number
+void deleteTask(vector<string>& tasks) {
+    if (tasks.empty()) {
+        cout << "No tasks available to delete." << endl;
+        return;
+    }
+
+    viewTasks(tasks);
+    
+    int taskNumber;
+    cout << "\nEnter task number to delete: ";
+    cin >> taskNumber;
+
+    // Validate if task number is within bounds
+    if (taskNumber < 1 || taskNumber > static_cast<int>(tasks.size())) {
+        cout << "Error: Invalid task number." << endl;
+    } else {
+        int index = taskNumber - 1;
+        string removedTask = tasks[index];
+        tasks.erase(tasks.begin() + index);
+        cout << "Task \"" << removedTask << "\" has been removed." << endl;
+    }
+}
+
+int main() {
+    vector<string> tasks;
+    int choice = 0;
+
+    while (choice != 4) {
+        cout << "\n============================" << endl;
+        cout << "      TO-DO LIST MENU       " << endl;
+        cout << "============================" << endl;
+        cout << "1. Add task" << endl;
+        cout << "2. View tasks" << endl;
+        cout << "3. Delete task" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+        
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                deleteTask(tasks);
+                break;
+            case 4:
+                cout << "Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please enter a number between 1 and 4." << endl;
+                break;
+        }
+    }
+
+    return 0;
+}
+// =============================================================================
+
 
